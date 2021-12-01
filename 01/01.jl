@@ -36,7 +36,3 @@ function rolling_sum(x::Vector{<:Integer}, n::Integer)
 end
 
 answer2 = sum(diff(rolling_sum(input, 3)) .> 0)
-
-function f(x::Vector{<:Integer}, n::Integer)
-    x .* n
-end
