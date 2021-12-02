@@ -12,14 +12,15 @@ session cookie (accessible in the browser preferences).
 function get_aoc_input(day::Integer, cookie::AbstractString)
     cookies = Dict("session"=>cookie)
     r = HTTP.get("https://adventofcode.com/2021/day/$day/input", cookies=cookies)
-    parse.(Int, split(strip(String(r.body))))
+    String(r.body)
 end
 
 cookie = ""
 input = get_aoc_input(1, cookie)
+data = parse.(Int, split(strip(input)))
 
 # part 1
-answer1 = sum(diff(input) .> 0)
+println("Answer 1: ", sum(diff(data) .> 0))
 
 # part 2
 """
@@ -35,4 +36,4 @@ function rolling_sum(x::Vector{<:Integer}, n::Integer)
     dropdims(sum(result, dims=2), dims=2)
 end
 
-answer2 = sum(diff(rolling_sum(input, 3)) .> 0)
+println("Answer 2: ", sum(diff(rolling_sum(data, 3)) .> 0))
