@@ -1,17 +1,18 @@
 include("utils.jl")
 
+using Statistics
+
 cookie = ""
 input = get_aoc_input(3, cookie)
-data = parse.(Int16, split(strip(input)), base=2)
+data = parse.(Int16, split(strip(input)), base=2)  # input data as vector of integers
+data = reverse(vcat(digits.(data, base=2, pad=ndigits(maximum(data), base=2))'...), dims=2)
 
 # part 1
 function bits_to_int(bits)
     parse(Int, join(string.(bits, base=2)), base=2)
 end
 
-pad = ndigits(maximum(data), base=2)
-report = reverse(permutedims(hcat(digits.(data, base=2, pad=pad)...)), dims=2)
-gamma_bits = sum(report, dims=1) .> size(report, 1) / 2
+gamma_bits = Bool.(round.(Int, mean(data, dims=1)))
 gamma = bits_to_int(gamma_bits)
 epsilon = bits_to_int(.!gamma_bits)
 
@@ -27,7 +28,7 @@ function find_rating(bitmatrix, f)
     end
 end
 
-o2 = find_rating(report, >=)
-co2 = find_rating(report, <)
+o2 = find_rating(data, >=)
+co2 = find_rating(data, <)
 
 println("Answer 2: ", o2 * co2)
