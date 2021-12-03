@@ -5,7 +5,8 @@ input = get_aoc_input(2, cookie)
 data = split(strip(input), "\n")
 
 # part 1
-let horizontal = 0, depth = 0
+function part1()
+    horizontal = depth = 0
     for command in data
         direction, units = split(command)
         units = parse(Int, units)
@@ -17,11 +18,14 @@ let horizontal = 0, depth = 0
             depth -= units
         end
     end
-    println("Answer 1: ", horizontal * depth)
+    horizontal * depth
 end
 
+println("Answer 1: ", part1())
+
 # part 2
-let aim = 0, horizontal = 0, depth = 0
+function part2()
+    aim = horizontal = depth = 0
     for command in data
         direction, units = split(command)
         units = parse(Int, units)
@@ -34,5 +38,7 @@ let aim = 0, horizontal = 0, depth = 0
             aim -= units
         end
     end
-    println("Answer 2: ", horizontal * depth)
+    horizontal * depth
 end
+
+println("Answer 2: ", part2())
