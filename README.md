@@ -7,3 +7,4 @@ This repository contains my solutions for [Advent of Code 2021](https://adventof
 - [Day 4](https://github.com/cbrnr/aoc2021/blob/main/04.jl)
 - [Day 5](https://github.com/cbrnr/aoc2021/blob/main/05.jl)
 - [Day 6](https://github.com/cbrnr/aoc2021/blob/main/06.jl)
+- [Day 7](https://github.com/cbrnr/aoc2021/blob/main/07.jl)
