@@ -17,17 +17,31 @@ function create_graph(data)
     graph
 end
 
-function find_paths(graph, current, path)
+"""Count unique elements in an array."""
+function counter(array)
+    d = Dict{Any, Int}()
+    for x in array
+        d[x] = get(d, x, 0) + 1
+    end
+    d
+end
+
+function find_paths(graph, current, path; visit="once")
     current == "end" && return [path]  # reached end node
     result = []  # new path
     for node in graph[current]
-        if all(c -> isuppercase(c), node) || node ∉ path
-            result = vcat(result, find_paths(graph, node, vcat(path, node)))
+        condition = all(c -> isuppercase(c), node) || node ∉ path
+        if visit == "twice"
+            smalls = [s for s in path if all(islowercase.(collect(s)))]
+            condition = condition || maximum(values(counter(smalls))) == 1
+        end
+        if condition
+            result = vcat(result, find_paths(graph, node, vcat(path, node), visit=visit))
         end
     end
     result
 end
 
 graph = create_graph(data)
-paths = find_paths(graph, "start", Vector{String}())
-println("Answer 1: ", length(paths))
+println("Answer 1: ", length(find_paths(graph, "start", Vector{String}())))
+println("Answer 2: ", length(find_paths(graph, "start", Vector{String}(), visit="twice")))

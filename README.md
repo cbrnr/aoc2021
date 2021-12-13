@@ -12,3 +12,4 @@ This repository contains my solutions for [Advent of Code 2021](https://adventof
 - [Day 9](https://github.com/cbrnr/aoc2021/blob/main/09.jl)
 - [Day 10](https://github.com/cbrnr/aoc2021/blob/main/10.jl)
 - [Day 11](https://github.com/cbrnr/aoc2021/blob/main/11.jl)
+- [Day 12](https://github.com/cbrnr/aoc2021/blob/main/12.jl)
