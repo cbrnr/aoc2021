@@ -36,13 +36,9 @@ end
 
 function print_grid(grid)
     s = ""
-    for x in eachrow(code)
+    for x in eachrow(grid)
         for y in x
-            if y == 0
-                s *= " "
-            else
-                s *= "▮"
-            end
+            y == 0 ? s *= " " : s *= "▮"
         end
         s *= "\n"
     end
