@@ -2,7 +2,7 @@ include("utils.jl")
 
 cookie = ""
 input = get_aoc_input(11, cookie)
-data = permutedims(hcat(collect([parse.(Int, row) for row in collect.(split(strip(input)))])...))
+data = permutedims(hcat([parse.(Int, x) for x in collect.(split(strip(input)))]...))
 
 function simulate_octos(energy, steps; mode="flashes")
     flashes = 0
