@@ -2,7 +2,7 @@ include("utils.jl")
 
 cookie = ""
 input = get_aoc_input(15, cookie)
-cost = permutedims(hcat([parse.(Int, x) for x in collect.(split(strip(input)))]...))
+cave = permutedims(hcat([parse.(Int, x) for x in collect.(split(strip(input)))]...))
 
 function min_path(path, unvisited)
     nrows, ncols = size(path)
@@ -20,9 +20,9 @@ function min_path(path, unvisited)
 end
 
 """Dijkstra's shortest path algorithm (from top left to bottom right)."""
-function shortest_path(cost)
-    nrows, ncols = size(cost)
-    path = fill(typemax(Int), size(cost))  # fill with "integer infinity"
+function shortest_path(cave)
+    nrows, ncols = size(cave)
+    path = fill(typemax(Int), size(cave))  # fill with "integer infinity"
     path[1, 1] = 0  # source at top left
     unvisited = ones(Bool, size(path))
 
@@ -32,8 +32,9 @@ function shortest_path(cost)
         neighbors = [loc - [1, 0], loc + [1, 0], loc - [0, 1], loc + [0, 1]]
         neighbors = [n for n in neighbors if 0 < n[1] ≤ nrows && 0 < n[2] ≤ ncols]
         for n in neighbors
-            if (d = v + cost[n...]) < path[n...]
+            if (d = v + cave[n...]) < path[n...]
                 path[n...] = d
+                n == [nrows, ncols] && return path[end, end]
             end
         end
     end
@@ -41,4 +42,15 @@ function shortest_path(cost)
     path[end, end]  # destination at bottom right
 end
 
-println("Answer 1: ", shortest_path(cost))
+println("Answer 1: ", shortest_path(cave))
+
+big_cave = [
+    cave    cave.+1 cave.+2 cave.+3 cave.+4
+    cave.+1 cave.+2 cave.+3 cave.+4 cave.+5
+    cave.+2 cave.+3 cave.+4 cave.+5 cave.+6
+    cave.+3 cave.+4 cave.+5 cave.+6 cave.+7
+    cave.+4 cave.+5 cave.+6 cave.+7 cave.+8
+]
+big_cave = mod1.(big_cave, 9)
+
+println("Answer 12: ", shortest_path(big_cave))
