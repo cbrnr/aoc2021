@@ -23,8 +23,8 @@ end
 
 function find_ymax(target)
     ymax = 0
-    for x = 0:1000
-        for y = 0:1000
+    for x = 0:target[2]
+        for y = 0:abs(minimum(target[3:4]))
             ymax = max(probe([x, y], target)[2], ymax)
         end
     end
@@ -33,8 +33,9 @@ end
 
 function find_hits(target)
     hits = []
-    for x = 0:1000
-        for y = -1000:1000
+    ymax = abs(minimum(target[3:4]))
+    for x = 0:target[2]
+        for y = -ymax:ymax
             probe([x, y], target)[1] && push!(hits, [x, y])
         end
     end
